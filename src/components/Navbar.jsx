@@ -18,47 +18,70 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-sky-500 text-white p-4 shadow-md relative z-50">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="font-bold text-xl">ROS2 TUTORIALS HUB</h1>
+    <nav className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white shadow-2xl sticky top-0 z-50 backdrop-blur-sm">
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex justify-between items-center">
+          <Link to="/" className="group">
+            <h1 className="font-bold text-2xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent group-hover:from-cyan-400 group-hover:to-blue-400 transition-all duration-300">
+              ROS2 TUTORIALS HUB
+            </h1>
+          </Link>
 
-        {/* Hamburger */}
-        <button
-          className="md:hidden flex flex-col space-y-1 focus:outline-none"
-          onClick={() => setOpen(!open)}
-        >
-          <span className="block w-6 h-0.5 bg-white transition-transform duration-300"></span>
-          <span className="block w-6 h-0.5 bg-white transition-opacity duration-300"></span>
-          <span className="block w-6 h-0.5 bg-white transition-transform duration-300"></span>
-        </button>
+          {/* Hamburger */}
+          <button
+            className="md:hidden flex flex-col space-y-1.5 focus:outline-none group"
+            onClick={() => setOpen(!open)}
+          >
+            <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${open ? 'rotate-45 translate-y-2' : ''}`}></span>
+            <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${open ? 'opacity-0' : ''}`}></span>
+            <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${open ? '-rotate-45 -translate-y-2' : ''}`}></span>
+          </button>
 
-        {/* Menu */}
-        <ul
-          className={`absolute top-16 left-0 w-full bg-sky-500 md:static md:flex md:space-x-4 md:w-auto transition-transform duration-300 ease-out transform origin-top ${
-            open ? 'scale-y-100' : 'scale-y-0'
-          } md:scale-y-100`}
-        >
-          {links.map((link) => (
-            <li
-              key={link.name}
-              className="px-4 py-3 md:py-0 hover:bg-sky-600 md:hover:bg-transparent transition-colors"
-            >
-              <Link
-                to={link.path}
-                className="flex items-center space-x-2 transform hover:scale-105 transition-transform duration-200"
-              >
-                <img
-                  src={link.icon}
-                  alt={link.name}
-                  className="w-5 h-5 md:w-4 md:h-4 shadow-md hover:shadow-lg transition-shadow duration-200"
-                />
-                <span className="font-medium hover:text-yellow-200 transition-colors duration-200">
-                  {link.name}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+          {/* Desktop Menu */}
+          <ul className="hidden md:flex space-x-8">
+            {links.map((link) => (
+              <li key={link.name}>
+                <Link
+                  to={link.path}
+                  className="group flex items-center space-x-2 px-4 py-2 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
+                >
+                  <img
+                    src={link.icon}
+                    alt={link.name}
+                    className="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                  <span className="font-medium group-hover:text-cyan-300 transition-colors duration-300">
+                    {link.name}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+          open ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'
+        }`}>
+          <ul className="space-y-2 pb-4">
+            {links.map((link) => (
+              <li key={link.name}>
+                <Link
+                  to={link.path}
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-all duration-300"
+                  onClick={() => setOpen(false)}
+                >
+                  <img
+                    src={link.icon}
+                    alt={link.name}
+                    className="w-5 h-5 opacity-80"
+                  />
+                  <span className="font-medium">{link.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </nav>
   );
