@@ -13,16 +13,38 @@ export default function Blog() {
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 100);
     
-    axios
-      .get("http://127.0.0.1:8000/api/blog/")
-      .then((res) => {
-        setBlogs(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+    // Mock data instead of API call to avoid network errors
+    const mockBlogs = [
+      {
+        id: 1,
+        title: "Getting Started with ROS2 Navigation",
+        content: "Learn the fundamentals of ROS2 navigation stack and how to implement autonomous robot navigation in your projects.",
+        author: "ROS2 Team",
+        created_at: "2024-01-15T10:00:00Z",
+        image_url: "https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&w=800"
+      },
+      {
+        id: 2,
+        title: "Advanced SLAM Techniques in ROS2",
+        content: "Explore advanced Simultaneous Localization and Mapping techniques using ROS2 and modern sensor fusion algorithms.",
+        author: "Dr. Sarah Chen",
+        created_at: "2024-01-10T14:30:00Z",
+        image_url: "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=800"
+      },
+      {
+        id: 3,
+        title: "Robot Manipulation with MoveIt2",
+        content: "Master robotic arm control and manipulation using MoveIt2 framework with practical examples and best practices.",
+        author: "Prof. Michael Rodriguez",
+        created_at: "2024-01-05T09:15:00Z",
+        image_url: "https://images.pexels.com/photos/2085831/pexels-photo-2085831.jpeg?auto=compress&cs=tinysrgb&w=800"
+      }
+    ];
+    
+    setTimeout(() => {
+      setBlogs(mockBlogs);
+      setLoading(false);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);

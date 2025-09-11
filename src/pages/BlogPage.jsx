@@ -14,16 +14,59 @@ export default function BlogDetail() {
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 100);
     
-    axios
-      .get(`http://127.0.0.1:8000/api/blog/${id}/`)
-      .then((res) => {
-        setBlog(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+    // Mock data instead of API call
+    const mockBlog = {
+      id: parseInt(id),
+      title: "Getting Started with ROS2 Navigation",
+      content: `# Introduction to ROS2 Navigation
+
+ROS2 Navigation is a powerful framework that enables autonomous robot navigation. In this comprehensive guide, we'll explore the key components and implementation strategies.
+
+## Key Components
+
+### 1. Navigation Stack
+The ROS2 navigation stack provides a complete solution for robot navigation including:
+- Path planning algorithms
+- Obstacle avoidance
+- Localization systems
+- Map management
+
+### 2. SLAM Integration
+Simultaneous Localization and Mapping (SLAM) is crucial for autonomous navigation:
+
+\`\`\`bash
+ros2 launch slam_toolbox online_async_launch.py
+\`\`\`
+
+### 3. Sensor Fusion
+Modern robots use multiple sensors for robust navigation:
+- LiDAR for precise distance measurements
+- Cameras for visual odometry
+- IMU for orientation tracking
+
+## Implementation Guide
+
+Follow these steps to implement navigation in your ROS2 robot:
+
+1. **Setup the navigation stack**
+2. **Configure your robot's parameters**
+3. **Create navigation goals**
+4. **Test and optimize performance**
+
+> **Pro Tip**: Always test your navigation system in simulation before deploying to real hardware.
+
+## Conclusion
+
+ROS2 Navigation provides a robust foundation for autonomous robot systems. With proper configuration and testing, you can achieve reliable navigation performance in various environments.`,
+      author: "ROS2 Team",
+      created_at: "2024-01-15T10:00:00Z",
+      image_url: "https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&w=800"
+    };
+    
+    setTimeout(() => {
+      setBlog(mockBlog);
+      setLoading(false);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [id]);
